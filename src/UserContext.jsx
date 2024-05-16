@@ -1,15 +1,16 @@
 import { createContext, useState } from "react";
 
-export const Context = createContext();
-
-const UserContext = ({ children }) => {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    pwd: "",
-  });
+export const UserContext = createContext();
+const UserContextProvider = ({ children }) => {
+  const [user, setUser] = useState({ username: "", email: "", pwd: "" });
+  const onChange = (e, value) => {
+    setUser({ ...user, [value]: e.target.value });
+    console.log(e.target.value);
+  };
   return (
-    <Context.Provider value={(user, setUser)}>{children}</Context.Provider>
+    <UserContext.Provider value={{ user, onChange }}>
+      {children}
+    </UserContext.Provider>
   );
 };
-export default UserContext;
+export default UserContextProvider;

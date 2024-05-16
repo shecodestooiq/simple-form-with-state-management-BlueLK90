@@ -1,39 +1,36 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Context } from "../UserContext";
+import { UserContext } from "../UserContext";
 
 const Home = () => {
-  const [user, setUser] = useContext(Context);
+  const { onChange } = useContext(UserContext);
   return (
-    <>
+    <div>
       <h2>Login</h2>
       <form onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
           placeholder="Full Name"
-          value={user.name}
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
-        />
-        <br />
-        <input
-          type="email"
-          placeholder="Email"
-          value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          onChange={(e) => onChange(e, "username")}
         />
         <br />
         <input
           type="text"
-          placeholder="Password"
-          value={user.pwd}
-          onChange={(e) => setUser({ ...user, pwd: e.target.value })}
+          placeholder="Email"
+          onChange={(e) => onChange(e, "email")}
         />
         <br />
-        <Link to={"/Welcome"}>
-          <button type="submit">Login</button>
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => onChange(e, "pwd")}
+        />
+        <br />
+        <Link to={"/welcome"}>
+          <button type="submit">Log in</button>
         </Link>
       </form>
-    </>
+    </div>
   );
 };
 
